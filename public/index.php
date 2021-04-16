@@ -6,16 +6,16 @@ use Slim\Factory\AppFactory;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$BANDWIDTH_ACCOUNT_ID = getenv("BANDWIDTH_ACCOUNT_ID");
-$BANDWIDTH_USERNANME = getenv("BANDWIDTH_USERNAME");
-$BANDWIDTH_PASSWORD = getenv("BANDWIDTH_PASSWORD");
-$BANDWIDTH_VOICE_APPLICATION_ID = getenv("BANDWIDTH_VOICE_APPLICATION_ID");
-$BASE_URL = getenv("BASE_URL");
+$BW_ACCOUNT_ID = getenv("BW_ACCOUNT_ID");
+$BW_USERNANME = getenv("BW_USERNAME");
+$BW_PASSWORD = getenv("BW_PASSWORD");
+$BW_VOICE_APPLICATION_ID = getenv("BW_VOICE_APPLICATION_ID");
+$BASE_CALLBACK_URL = getenv("BASE_CALLBACK_URL");
 
 $config = new BandwidthLib\Configuration(
     array(
-        "voiceBasicAuthUserName" => $BANDWIDTH_USERNANME,
-        "voiceBasicAuthPassword" => $BANDWIDTH_PASSWORD
+        "voiceBasicAuthUserName" => $BW_USERNANME,
+        "voiceBasicAuthPassword" => $BW_PASSWORD
     )
 );
 
@@ -32,16 +32,16 @@ $voice_client = $client->getVoice()->getClient();
 
 $app->post('/outboundCall', function (Request $request, Response $response) {
     // POST with to, from, and tag creates outbound call
-    global $BANDWIDTH_ACCOUNT_ID, $BANDWIDTH_VOICE_APPLICATION_ID, $BASE_URL, $voice_client;
+    global $BW_ACCOUNT_ID, $BW_VOICE_APPLICATION_ID, $BASE_CALLBACK_URL, $voice_client;
     $data = $request->getParsedBody();
     $body = new BandwidthLib\Voice\Models\ApiCreateCallRequest();
     $body->from = $data['from'];
     $body->to = $data['to'];
-    $body->answerUrl = $BASE_URL . "/voiceCallback";;
-    $body->applicationId = $BANDWIDTH_VOICE_APPLICATION_ID;
+    $body->answerUrl = $BASE_CALLBACK_URL . "/voiceCallback";;
+    $body->applicationId = $BW_VOICE_APPLICATION_ID;
 
     try {
-        $apiResponse = $voice_client->createCall($BANDWIDTH_ACCOUNT_ID, $body);
+        $apiResponse = $voice_client->createCall($BW_ACCOUNT_ID, $body);
         $callId = $apiResponse->getResult()->callId;
         $response->getBody()->write('{"callId": "'.$callId.'"}');
         return $response->withStatus(201)
