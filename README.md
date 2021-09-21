@@ -16,7 +16,8 @@
 <!-- /TOC -->
 
 # Description
-A sample PHP application that demonstrates a server capable creating a simple gather IVR using Bandwidth's Voice API 
+A sample PHP application that demonstrates a server capable creating a simple gather IVR using Bandwidth's Voice API .
+To start the PHP server you will need to run the command `php -S localhost:5000 -t public`.
 
 # Bandwidth
 
