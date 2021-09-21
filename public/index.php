@@ -30,6 +30,12 @@ $app->addErrorMiddleware(true, true, true);
 
 $voice_client = $client->getVoice()->getClient();
 
+$app->get('/', function (Request $request, Response $response) {
+  $response = $response->withStatus(200);
+  $response->getBody()->write('Server is Running');
+  return $response;
+});
+
 $app->post('/outboundCall', function (Request $request, Response $response) {
     // POST with to, from, and tag creates outbound call
     global $BW_ACCOUNT_ID, $BW_VOICE_APPLICATION_ID, $BASE_CALLBACK_URL, $voice_client;
