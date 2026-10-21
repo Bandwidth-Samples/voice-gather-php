@@ -10,14 +10,14 @@
 - [Description](#description)
 - [Bandwidth](#bandwidth)
 - [Environmental Variables](#environmental-variables)
+- [Running the Application](#running-the-application)
 - [Callback URLs](#callback-urls)
     - [Ngrok](#ngrok)
 
 <!-- /TOC -->
 
 # Description
-A sample PHP application that demonstrates a server capable creating a simple gather IVR using Bandwidth's Voice API .
-To start the PHP server you will need to run the command `php -S localhost:5000 -t public`.
+This sample app creates an outbound call to the supplied phone number, which if answered will prompt the user using [Gather BXML](https://dev.bandwidth.com/docs/voice/bxml/gather) to select between a list of options to hear different messages played back.
 
 # Bandwidth
 
@@ -31,10 +31,26 @@ For more information about API credentials see [here](https://dev.bandwidth.com/
 The sample app uses the below environmental variables.
 ```sh
 BW_ACCOUNT_ID                 # Your Bandwidth Account Id
-BW_USERNAME                   # Your Bandwidth API Username
-BW_PASSWORD                   # Your Bandwidth API Password
+BW_CLIENT_ID                  # Your Bandwidth API OAuth Client Id
+BW_CLIENT_SECRET              # Your Bandwidth API OAuth Client Secret
+BW_NUMBER                     # The Bandwidth phone number involved with this application
 BW_VOICE_APPLICATION_ID       # Your Voice Application Id created in the dashboard
-BASE_CALLBACK_URL             # Your public base url
+BASE_CALLBACK_URL             # Your public base url to receive Bandwidth Webhooks. No trailing '/'
+LOCAL_PORT                    # The port number you wish to run the sample on
+```
+
+# Running the Application
+
+To install the required packages for this app, run the command:
+
+```sh
+composer install
+```
+
+Use the following command to run the application:
+
+```sh
+composer start
 ```
 
 # Callback URLs
@@ -42,9 +58,9 @@ BASE_CALLBACK_URL             # Your public base url
 For a detailed introduction to Bandwidth Callbacks see https://dev.bandwidth.com/guides/callbacks/callbacks.html
 
 Below are the callback paths:
-* `/outboundCall`
-* `/voiceCallback`
-* `/gatherCallback`
+* `/calls`
+* `/callbacks/outbound/voice`
+* `/callbacks/outbound/voice/gather`
 
 ## Ngrok
 
@@ -53,4 +69,4 @@ After you have downloaded and installed `ngrok` run the following command to ope
 ```cmd
 ngrok http $LOCAL_PORT
 ```
-You can view your public URL at `http://127.0.0.1:{LOCAL_PORT}` after ngrok is running.  You can also view the status of the tunnel and requests/responses here.
+You can view your public URL at `http://127.0.0.1:4040` after ngrok is running.  You can also view the status of the tunnel and requests/responses here.
