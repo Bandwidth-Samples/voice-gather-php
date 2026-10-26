@@ -1,12 +1,13 @@
-# Voice-Gather-PHP
-<a href="http://dev.bandwidth.com"><img src="https://s3.amazonaws.com/bwdemos/BW-VMP.png"/></a>
-</div>
+# Voice Gather
+
+<a href="https://dev.bandwidth.com/docs/voice/programmable-voice/quickStart/">
+  <img src="./icon-voice.svg" title="Voice Quick Start Guide" alt="Voice Quick Start Guide"/>
+</a>
 
  # Table of Contents
 
 <!-- TOC -->
 
-- [Voice-Gather-PHP](#Voice-Gather-PHP)
 - [Description](#description)
 - [Bandwidth](#bandwidth)
 - [Environmental Variables](#environmental-variables)
