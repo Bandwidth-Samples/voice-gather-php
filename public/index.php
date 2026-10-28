@@ -61,7 +61,7 @@ $app->post('/calls', function (Request $request, Response $response) use ($calls
         return $response->withStatus(500);
     }
 
-    return $response->withStatus(200);
+    return $response->withStatus(204);
 });
 
 $app->post('/callbacks/outbound/voice', function (Request $request, Response $response) {
